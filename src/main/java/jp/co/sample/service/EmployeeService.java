@@ -29,5 +29,15 @@ public class EmployeeService {
 	public List<Employee> showList(){
 		return repository.findAll();
 	}
+	
+	/**
+	 * IDから社員情報を検索.
+	 * 
+	 * @param id ID
+	 * @return 社員情報(0件ならばnullを返す)
+	 */
+	public Employee showDetail(Integer id) {
+		return repository.load(id);
+	}
 
 }
