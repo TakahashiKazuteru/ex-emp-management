@@ -43,7 +43,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
-										<label for="name"> 氏名: </label> <label class="error-messages">
+										<label for="name"> 氏名: </label> <label class="error-messages" th:errors="*{name}">
 											氏名を入力してください </label> <input type="text" name="name" th:field="*{name}" id="name" class="form-control" placeholder="山田太郎">
 									</div>
 								</div>
@@ -52,7 +52,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
-										<label for="mailAddress"> メールアドレス: </label> <label
+										<label for="mailAddress" th:errors="*{mailAddress}"> メールアドレス: </label> <label
 											class="error-messages"> メールアドレスを入力してください </label> <input
 											type="text" name="mailAddress" th:field="*{mailAddress}" id="mailAddress"
 											class="form-control" placeholder="yamada@mail.com">
@@ -64,7 +64,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<label for="passwaord"> パスワード: </label> <label
-											class="error-messages"> パスワードを入力してください </label> <input
+											class="error-messages" th:errors="*{password}"> パスワードを入力してください </label> <input
 											type="password" name="password" th:field="password" id="password"
 											class="form-control" placeholder="password">
 									</div>
