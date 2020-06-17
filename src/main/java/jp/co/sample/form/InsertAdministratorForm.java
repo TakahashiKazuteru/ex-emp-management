@@ -1,8 +1,6 @@
 package jp.co.sample.form;
 
-public class AdministratorForm {
-	/** 保持者IDを保持する */
-	private String id;
+public class InsertAdministratorForm {
 	/** 保持者の名前を保持する */
 	private String name;
 	/** 保持者のメールアドレスを保持する */
@@ -12,16 +10,7 @@ public class AdministratorForm {
 
 	@Override
 	public String toString() {
-		return "AdministratorForm [id=" + id + ", name=" + name + ", mailAddress=" + mailAddress + ", password="
-				+ password + "]";
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		return "AdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password + "]";
 	}
 
 	public String getName() {
