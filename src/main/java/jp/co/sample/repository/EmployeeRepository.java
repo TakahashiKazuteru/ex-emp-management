@@ -16,6 +16,7 @@ import jp.co.sample.domain.Employee;
 /**
  * 
  * employeesテーブルを操作するためのリポジトリ.
+ * 
  * @author kazuteru.takahashi
  *
  */
@@ -41,8 +42,9 @@ public class EmployeeRepository {
 	private NamedParameterJdbcTemplate template;
 
 	/**
-	 * テーブルに登録されている情報を返します.
-	 * @return テーブルに登録されているレコードをList<Employee>型で返す.
+	 * 全権検索をする.
+	 * 
+	 * @return 従業員一覧
 	 */
 	public List<Employee> findAll() {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,telephone,salary,characteristics,dependents_count "
@@ -54,8 +56,9 @@ public class EmployeeRepository {
 
 	/**
 	 * 指定されたIDから社員情報を取得します.
-	 * @param id
-	 * @return idに対応した社員情報をEmployee型で返えす.
+	 * 
+	 * @param id ID
+	 * @return 従業員情報(0件であればnullを返す)
 	 */
 	public Employee load(Integer id) {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,telephone,salary,characteristics,dependents_count "
@@ -70,6 +73,11 @@ public class EmployeeRepository {
 		}
 	}
 
+	/**
+	 * ID以外の社員情報を更新.
+	 * 
+	 * @param 更新後の社員情報
+	 */
 	public void update(Employee employee) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
 		String sql = "UPDATE "+TABLE_NAME+" SET name = :name,image = :image,gender = :gender,hire_date = :hireDate,mail_address = :mailAddress,"

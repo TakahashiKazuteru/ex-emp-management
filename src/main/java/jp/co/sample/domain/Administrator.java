@@ -1,18 +1,21 @@
 package jp.co.sample.domain;
 /**
  * 管理者情報を表すドメイン.
+ * 
  * @author kazuteru.takahashi
  *
  */
 public class Administrator {
-	/** 保持者IDを保持する */
+	/** ID */
 	private Integer id;
-	/** 保持者の名前を保持する */
+	/** 名前 */
 	private String name;
-	/** 保持者のメールアドレスを保持する */
+	/** メールアドレス */
 	private String mailAddress;
-	/** 保持者のパスワードを保持する */
+	/**　パスワード */
 	private String password;
+	
+	//コンストラクター
 
 	@Override
 	public String toString() {

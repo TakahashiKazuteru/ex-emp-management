@@ -8,7 +8,7 @@ import jp.co.sample.domain.Administrator;
 import jp.co.sample.repository.AdministratorRepository;
 
 /**
- * 
+ * 管理者情報を操作するサービスクラス.
  * 
  * @author kazuteru.takahashi
  *
@@ -19,10 +19,22 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository repository;
 	
+	/**
+	 * 新規管理者情報登録.
+	 * 
+	 * @param 管理者情報
+	 */
 	public void insert(Administrator administrator) {
 		repository.insert(administrator);
 	}
 	
+	/**
+	 * メールアドレスとパスワードから管理者であるかを検索.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return 管理者情報
+	 */
 	public Administrator findByMailaddressAndPassword(String mailAddress,String password) {
 		return repository.findByMailaddressAndPassword(mailAddress, password);
 	}

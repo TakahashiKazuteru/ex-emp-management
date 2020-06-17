@@ -12,8 +12,8 @@ import jp.co.sample.domain.Administrator;
 
 
 /**
- * 
  * administoratorsテーブルを操作するリポジトリ.
+ * 
  * @author kazuteru.takahashi
  *
  */
@@ -34,7 +34,8 @@ public class AdministratorRepository {
 
 	/**
 	 * 管理者情報をテーブルに登録する.
-	 * @param administrator
+	 * 
+	 * @param administrator 管理者情報
 	 */
 	public void insert(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
@@ -44,10 +45,11 @@ public class AdministratorRepository {
 	}
 
 	/**
-	 * メールアドレスとパスワードを使用してadministratorテーブルから登録されている一行を返します.
-	 * @param mailAddress
-	 * @param password
-	 * @return メールアドレスとパスワードから一致する一意のAdministrator型を返す.
+	 * メールアドレスとパスワードから管理者情報を検索する.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return 管理者情報(0件の場合はnullを返す)
 	 */
 	public Administrator findByMailaddressAndPassword(String mailAddress, String password) {
 		String sql = "SELECT id,name,mail_address,password FROM " + TABLE_NAME

@@ -4,17 +4,18 @@ import javax.validation.constraints.NotBlank;
 /**
  * 
  * 管理者登録時に使用するフォーム.
+ * 
  * @author kazuteru.takahashi
  *
  */
 public class InsertAdministratorForm {
-	/** 保持者の名前を保持する */
+	/** 名前 */
 	@NotBlank(message = "氏名を入力してください")
 	private String name;
-	/** 保持者のメールアドレスを保持する */
+	/** メールアドレス */
 	@NotBlank(message = "メールアドレスを入力してください")
 	private String mailAddress;
-	/** 保持者のパスワードを保持する */
+	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください")
 	private String password;
 

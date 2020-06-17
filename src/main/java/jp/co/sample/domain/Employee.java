@@ -4,33 +4,34 @@ import java.util.Date;
 
 /**
  * 社員情報を表すドメイン.
+ * 
  * @author kazuteru.takahashi
  *
  */
 public class Employee {
-	/** 社員IDを保持する */
+	/** ID */
 	private Integer id;
-	/** 社員の名前を保持する */
+	/** 名前 */
 	private String name;
-	/** 社員の画像ファイル名を保持する */
+	/** 画像ファイル名 */
 	private String image;
-	/** 社員の性別情報を保持する */
+	/** 性別 */
 	private String gender;
-	/** 社員の入社日を保持する */
+	/** 入社日 */
 	private Date hireDate;
-	/** 社員のメールアドレスを保持する */
+	/** メールアドレス */
 	private String mailAddress;
-	/** 社員の郵便番号を保持する */
+	/** 郵便番号 */
 	private String zipCode;
-	/** 社員の住所を保持する */
+	/** 住所 */
 	private String address;
-	/** 社員の電話番号を保持する */
+	/** 電話番号 */
 	private String telephone;
-	/** 社員の給料を保持する */
+	/** 給料 */
 	private Integer salary;
-	/** 社員の特技を保持する */
+	/** 特技 */
 	private String characteristics;
-	/** 社員の扶養人数を保持する */
+	/** 扶養人数 */
 	private Integer dependentsCount;
 
 	@Override
