@@ -40,7 +40,12 @@ public class EmployeeService {
 		return repository.load(id);
 	}
 	
-	public void update( Employee employee) {
+	/**
+	 * 社員情報を更新する.
+	 * 
+	 * @param employee 新しい社員情報
+	 */
+	public void update(Employee employee) {
 		repository.update(employee);
 	}
 

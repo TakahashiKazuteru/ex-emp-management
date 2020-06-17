@@ -3,7 +3,6 @@ package jp.co.sample.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,21 +61,20 @@ public class EmployeeController {
 	public String showDetail(String id,Model model) {
 		Employee employee = service.showDetail(Integer.parseInt(id));
 		model.addAttribute("employee",employee);
-		System.out.println(employee);
 		return "employee/detail";
 	}
 	
 	/**
-	 * 社員情報(扶養人数情報)の更新
+	 * 社員情報(扶養人数情報)の更新.
 	 * 
 	 * @param form IDと扶養人数のフォーム
-	 * @param br validation用
+	 * @param result validation用
 	 * @param model リクエストスコープ
 	 * @return 社員一覧画面を表示
 	 */
 	@RequestMapping("/update")
-	public String update(@Validated UpdateEmployeeForm form,BindingResult br,Model model) {
-		if(br.hasErrors()) {
+	public String update(@Validated UpdateEmployeeForm form,BindingResult result,Model model) {
+		if(result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}
 		Employee employee = service.showDetail(Integer.parseInt(form.getId()));
@@ -85,6 +83,11 @@ public class EmployeeController {
 		return "redirect:/employee/showList";
 	}
 	
+	/**
+	 * ログアウトする.
+	 * 
+	 * @return ログイン画面を表示
+	 */
 	@RequestMapping("/logout")
 	public String logout() {
 		session.invalidate();
