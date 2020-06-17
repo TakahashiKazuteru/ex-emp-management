@@ -1,5 +1,6 @@
 package jp.co.sample.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,11 @@ public class AdministratorController {
 		return new InsertAdministratorForm();
 	}
 	
+	@RequestMapping("/")
+	public String toLogin() {
+		return "administrator/login";
+	}
+	
 	/**
 	 * ログイン画面をレスポンスする.
 	 * 
@@ -38,13 +44,22 @@ public class AdministratorController {
 		return "administrator/insert";
 	}
 	
+	/**
+	 * 入力された情報を登録する.
+	 * 
+	 * @param form 入力情報
+	 * @param br エラー情報
+	 * @return ホーム画面(リダイレクト)
+	 */
 	@RequestMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form,BindingResult br) {
 		if(br.hasErrors()) {
 			return toInsert();
 		}
 		Administrator administrator = new Administrator();
-		
+		BeanUtils.copyProperties(form, administrator);
+		service.insert(administrator);
+
 		return "redirect:/";
 	}
 }
