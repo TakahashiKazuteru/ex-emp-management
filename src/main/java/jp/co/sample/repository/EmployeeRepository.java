@@ -12,6 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Employee;
 
+
+/**
+ * 
+ * employeesテーブルを操作するためのリポジトリ.
+ * @author kazuteru.takahashi
+ *
+ */
 @Repository
 public class EmployeeRepository {
 	private static final String TABLE_NAME = "employees";
@@ -33,6 +40,10 @@ public class EmployeeRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	/**
+	 * テーブルに登録されている情報を返します.
+	 * @return テーブルに登録されているレコードをList<Employee>型で返す.
+	 */
 	public List<Employee> findAll() {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,telephone,salary,characteristics,dependents_count "
 				+ "FROM " + TABLE_NAME + " ORDER BY hire_date DESC;";
@@ -41,6 +52,11 @@ public class EmployeeRepository {
 		return employeeList;
 	}
 
+	/**
+	 * 指定されたIDから社員情報を取得します.
+	 * @param id
+	 * @return idに対応した社員情報をEmployee型で返えす.
+	 */
 	public Employee load(Integer id) {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,telephone,salary,characteristics,dependents_count "
 				+ "FROM "+TABLE_NAME+" WHERE id = :id";

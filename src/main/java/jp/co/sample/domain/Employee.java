@@ -3,7 +3,7 @@ package jp.co.sample.domain;
 import java.util.Date;
 
 /**
- * 
+ * 社員情報を表すドメイン.
  * @author kazuteru.takahashi
  *
  */

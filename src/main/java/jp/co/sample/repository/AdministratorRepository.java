@@ -10,6 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Administrator;
 
+
+/**
+ * 
+ * administoratorsテーブルを操作するリポジトリ.
+ * @author kazuteru.takahashi
+ *
+ */
 @Repository
 public class AdministratorRepository {
 	private static final String TABLE_NAME = "administrators";
@@ -25,6 +32,10 @@ public class AdministratorRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	/**
+	 * 管理者情報をテーブルに登録する.
+	 * @param administrator
+	 */
 	public void insert(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
 		String sql = "INSERT INTO " + TABLE_NAME + "(name,mail_address,password) VALUES(:name,:mail_address,password);";
@@ -32,6 +43,12 @@ public class AdministratorRepository {
 		System.out.println("Debug:called insert()!");
 	}
 
+	/**
+	 * メールアドレスとパスワードを使用してadministratorテーブルから登録されている一行を返します.
+	 * @param mailAddress
+	 * @param password
+	 * @return メールアドレスとパスワードから一致する一意のAdministrator型を返す.
+	 */
 	public Administrator findByMailaddressAndPassword(String mailAddress, String password) {
 		String sql = "SELECT id,name,mail_address,password FROM " + TABLE_NAME
 				+ " WHERE (mail_address = :mailAddress) AND (password = :password);";
