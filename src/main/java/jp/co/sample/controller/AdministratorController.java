@@ -42,7 +42,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * ログイン画面の表示
+	 * ログイン画面の表示.
 	 * 
 	 * @param model リクエストスコープ
 	 * @return ログイン画面
@@ -53,7 +53,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * ログイン処理を行う
+	 * ログイン処理を行う.
 	 * 
 	 * @param form ログイン情報
 	 * @param model リクエストスコープ
