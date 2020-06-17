@@ -42,7 +42,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * ログイン画面の表示.
+	 * ログイン画面を表示する.
 	 * 
 	 * @param model リクエストスコープ
 	 * @return ログイン画面
@@ -72,7 +72,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * ログイン画面をレスポンスする.
+	 * ログイン画面を表示する.
 	 * 
 	 * @return ログイン画面
 	 */
