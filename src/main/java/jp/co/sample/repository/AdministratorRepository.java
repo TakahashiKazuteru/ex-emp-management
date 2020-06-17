@@ -6,10 +6,11 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Administrator;
-
 
 /**
  * administoratorsテーブルを操作するリポジトリ.
@@ -39,8 +40,10 @@ public class AdministratorRepository {
 	 */
 	public void insert(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
-		String sql = "INSERT INTO " + TABLE_NAME + "(name,mail_address,password) VALUES(:name,:mail_address,password);";
-		template.update(sql, param);
+		String sql = "INSERT INTO " + TABLE_NAME + "(name,mail_address,password) VALUES(:name,:mailAddress,password);";
+		//KeyHolder keyHolder = new GeneratedKeyHolder();
+		//String[] keyColumnNames = { "id" };
+		template.update(sql, param /*,keyHolder, keyColumnNames*/);
 		System.out.println("Debug:called insert()!");
 	}
 
@@ -48,19 +51,19 @@ public class AdministratorRepository {
 	 * メールアドレスとパスワードから管理者情報を検索する.
 	 * 
 	 * @param mailAddress メールアドレス
-	 * @param password パスワード
+	 * @param password    パスワード
 	 * @return 管理者情報(0件の場合はnullを返す)
 	 */
 	public Administrator findByMailaddressAndPassword(String mailAddress, String password) {
 		String sql = "SELECT id,name,mail_address,password FROM " + TABLE_NAME
 				+ " WHERE (mail_address = :mailAddress) AND (password = :password);";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress)
-																.addValue("password",password);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",
+				password);
 		try {
 			return template.queryForObject(sql, param, ADMIN_ROW_MAPPER);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return null;
-		}finally {
+		} finally {
 			System.out.println("Debug:called findByMailaddressAndPassword()!");
 		}
 	}
