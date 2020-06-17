@@ -1,5 +1,9 @@
 package jp.co.sample.form;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Range;
+
 /**
  * 社員の扶養人数を更新するときに使用するフォーム.
  * 
@@ -10,6 +14,8 @@ public class UpdateEmployeeForm {
 	/** ID */
 	private String id;
 	/** 扶養人数 */
+	@NotBlank
+	@Range
 	private String dependentsCount;
 
 	@Override

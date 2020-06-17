@@ -40,7 +40,7 @@
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
 						&nbsp;&nbsp;&nbsp;
-						<a href="../administrator/login.html" class="navbar-link">ログアウト</a>
+						<a th:href="@{/employee/logout}" href="../administrator/login.html" class="navbar-link">ログアウト</a>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -72,7 +72,7 @@
 					<tbody>
 						<tr th:each="employee : ${employeeList}">
 							<td>
-								<a th:href="@{employee/showDetail?id=}+${employee.id}" href="detail.html">
+								<a th:href="@{/employee/showDetail?id=}+${employee.id}" href="detail.html">
 									<span th:text="${employee.name}">山田太郎</span>
 								</a>
 							</td>
