@@ -14,8 +14,8 @@ public class UpdateEmployeeForm {
 	/** ID */
 	private String id;
 	/** 扶養人数 */
-	@NotBlank
-	@Range
+	@NotBlank(message = "空で更新はできません")
+	@Range(message = "数字を入力してください")
 	private String dependentsCount;
 
 	@Override

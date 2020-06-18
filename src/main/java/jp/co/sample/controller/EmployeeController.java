@@ -85,6 +85,7 @@ public class EmployeeController {
 		if (result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}
+		System.out.println("error = "+result.hasErrors());
 		Employee employee = service.showDetail(Integer.parseInt(form.getId()));
 		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
 		service.update(employee);
