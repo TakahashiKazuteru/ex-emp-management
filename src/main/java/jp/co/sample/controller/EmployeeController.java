@@ -64,6 +64,7 @@ public class EmployeeController {
 	public String search(SearchEmployeeForm form,Model model) {
 		List<Employee> employeeList = service.showNearNameList(form.getSearchName());
 		model.addAttribute("employeeList",employeeList);
+		model.addAttribute("searchWord",form.getSearchName());
 		return "employee/list";
 	}
 
