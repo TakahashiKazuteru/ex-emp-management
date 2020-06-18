@@ -41,7 +41,7 @@ public class AdministratorController {
 	public InsertAdministratorForm setUpInsertAdministratorForm() {
 		return new InsertAdministratorForm();
 	}
-	
+
 	@ModelAttribute
 	public UpdateAdministratorForm setUpUpdateAdministratorForm() {
 		return new UpdateAdministratorForm();
@@ -84,7 +84,7 @@ public class AdministratorController {
 	 * @return ログイン画面
 	 */
 	@RequestMapping("/toInsert")
-	public String toInsert() {
+	public String toInsert(Model model) {
 		return "administrator/insert";
 	}
 
@@ -96,36 +96,54 @@ public class AdministratorController {
 	 * @return ホーム画面(リダイレクト)
 	 */
 	@RequestMapping("/insert")
-	public String insert(@Validated InsertAdministratorForm form, BindingResult br) {
+	public String insert(@Validated InsertAdministratorForm form, BindingResult br, Model model) {
 		if (br.hasErrors()) {
-			return toInsert();
+			return toInsert(model);
 		}
+		Administrator admin = service.findByMailAddress(form.getMailAddress());
+		if (admin != null) {
+			model.addAttribute("message","すでに登録済みのメールアドレスです");
+			return toInsert(model);
+		}
+
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
 		service.insert(administrator);
 
 		return "redirect:/";
 	}
-
+	/**
+	 * ログインされているアカウント情報変更画面へ遷移.
+	 * 
+	 * @param model リクエストスコープ
+	 * @return ログイン情報変更画面(session情報がなければログイン画面へ)
+	 */
 	@RequestMapping("/updateAdministrator")
 	public String updateAdministrator(Model model) {
 		String administratorName = (String) session.getAttribute("administratorName");
-		if(administratorName == null) {
+		if (administratorName == null) {
 			return "redirect:/";
 		}
 		Integer id = (Integer) session.getAttribute("administratorId");
 		Administrator administrator = service.load(id);
-		model.addAttribute("adminInfo",administrator);
+		model.addAttribute("adminInfo", administrator);
 		return "administrator/update";
 	}
-	
+	/**
+	 * 管理者情報を更新する.
+	 * 
+	 * @param form 更新する管理者情報
+	 * @param result validation情報
+	 * @param model リクエストスコープ
+	 * @return ログイン画面
+	 */
 	@RequestMapping("/update")
 	public String update(@Validated UpdateAdministratorForm form, BindingResult result, Model model) {
 		String administratorName = (String) session.getAttribute("administratorName");
-		if(administratorName == null) {
+		if (administratorName == null) {
 			return "redirect:/";
 		}
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return updateAdministrator(model);
 		}
 		Integer id = (Integer) session.getAttribute("administratorId");
@@ -134,5 +152,5 @@ public class AdministratorController {
 		service.update(administrator);
 		return "redirect:/";
 	}
-	
+
 }

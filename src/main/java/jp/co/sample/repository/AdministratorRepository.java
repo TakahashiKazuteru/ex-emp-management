@@ -45,6 +45,23 @@ public class AdministratorRepository {
 		String[] keyColumnNames = { "id" };
 		template.update(sql, param, keyHolder, keyColumnNames);
 	}
+	
+	/**
+	 * メールアドレスから管理者を検索.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @return 管理者情報
+	 */
+	public Administrator findByMailaddress(String mailAddress) {
+		String sql = "SELECT id,name,mail_address,password FROM " + TABLE_NAME
+				+ " WHERE mail_address = :mailAddress;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		try {
+			return template.queryForObject(sql, param, ADMIN_ROW_MAPPER);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/**
 	 * メールアドレスとパスワードから管理者情報を検索する.
