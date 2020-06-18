@@ -25,13 +25,13 @@ import jp.co.sample.service.EmployeeService;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private EmployeeService service;
-	
+
 	@ModelAttribute
 	public UpdateEmployeeForm setUpUpdateEmployeeForm() {
 		return new UpdateEmployeeForm();
@@ -45,36 +45,44 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
+		String administratorName = (String) session.getAttribute("administratorName");
+		if(administratorName == null) {
+			return "redirect:/";
+		}
 		List<Employee> employeeList = service.showList();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
-	
+
 	/**
 	 * 社員詳細画面の表示.
 	 * 
-	 * @param id ID
+	 * @param id    ID
 	 * @param model リクエストスコープ
 	 * @return 社員詳細画面
 	 */
 	@RequestMapping("/showDetail")
-	public String showDetail(String id,Model model) {
+	public String showDetail(String id, Model model) {
+		String administratorName = (String) session.getAttribute("administratorName");
+		if(administratorName == null) {
+			return "redirect:/";
+		}
 		Employee employee = service.showDetail(Integer.parseInt(id));
-		model.addAttribute("employee",employee);
+		model.addAttribute("employee", employee);
 		return "employee/detail";
 	}
-	
+
 	/**
 	 * 社員情報(扶養人数情報)の更新.
 	 * 
-	 * @param form IDと扶養人数のフォーム
+	 * @param form   IDと扶養人数のフォーム
 	 * @param result validation用
-	 * @param model リクエストスコープ
+	 * @param model  リクエストスコープ
 	 * @return 社員一覧画面を表示
 	 */
 	@RequestMapping("/update")
-	public String update(@Validated UpdateEmployeeForm form,BindingResult result,Model model) {
-		if(result.hasErrors()) {
+	public String update(@Validated UpdateEmployeeForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}
 		Employee employee = service.showDetail(Integer.parseInt(form.getId()));
@@ -82,7 +90,7 @@ public class EmployeeController {
 		service.update(employee);
 		return "redirect:/employee/showList";
 	}
-	
+
 	/**
 	 * ログアウトする.
 	 * 
