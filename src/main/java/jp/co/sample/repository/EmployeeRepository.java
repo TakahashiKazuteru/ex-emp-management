@@ -52,7 +52,6 @@ public class EmployeeRepository {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count "
 				+ "FROM " + TABLE_NAME + " ORDER BY hire_date DESC;";
 		List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
-		System.out.println("Debug:called findAll()");
 		return employeeList;
 	}
 
@@ -70,8 +69,6 @@ public class EmployeeRepository {
 			return template.queryForObject(sql, param, EMPLOYEE_ROW_MAPPER);
 		}catch (Exception e) {
 			return null;
-		}finally {
-			System.out.println("Debug:called load()");	
 		}
 	}
 	
@@ -86,7 +83,6 @@ public class EmployeeRepository {
 				+ "FROM "+TABLE_NAME+" WHERE name LIKE :searchName ORDER BY hire_date DESC;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", "%"+searchName+"%");
 		List<Employee> employeeList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
-		
 		return employeeList;
 	}
 
@@ -101,7 +97,5 @@ public class EmployeeRepository {
 				+ "telephone = :telephone,salary = :salary,characteristics = :characteristics,dependents_count = :dependentsCount "
 				+ "WHERE id = :id;";
 		template.update(sql, param);
-		System.out.println("Debug:called update()");
 	}
-
 }

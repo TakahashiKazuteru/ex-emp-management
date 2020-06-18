@@ -42,7 +42,6 @@ public class AdministratorRepository {
 		//KeyHolder keyHolder = new GeneratedKeyHolder();
 		//String[] keyColumnNames = { "id" };
 		template.update(sql, param /*,keyHolder, keyColumnNames*/);
-		System.out.println("Debug:called insert()!");
 	}
 
 	/**
@@ -61,8 +60,6 @@ public class AdministratorRepository {
 			return template.queryForObject(sql, param, ADMIN_ROW_MAPPER);
 		} catch (Exception e) {
 			return null;
-		} finally {
-			System.out.println("Debug:called findByMailaddressAndPassword()!");
 		}
 	}
 }
