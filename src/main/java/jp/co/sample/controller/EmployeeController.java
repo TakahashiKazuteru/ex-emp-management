@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,6 +102,9 @@ public class EmployeeController {
 		}
 		System.out.println("error = "+result.hasErrors());
 		Employee employee = service.showDetail(Integer.parseInt(form.getId()));
+		BeanUtils.copyProperties(form, employee);
+		employee.setHireDate((form.getHireDate()));
+		employee.setSalary(Integer.parseInt(form.getSalary()));
 		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
 		service.update(employee);
 		return "redirect:/employee/showList";
