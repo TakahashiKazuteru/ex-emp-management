@@ -38,4 +38,22 @@ public class AdministratorService {
 	public Administrator findByMailaddressAndPassword(String mailAddress,String password) {
 		return repository.findByMailaddressAndPassword(mailAddress, password);
 	}
+	/**
+	 * IDから管理者情報を検索.
+	 * 
+	 * @param id ID
+	 * @return 管理者情報
+	 */
+	public Administrator load(Integer id) {
+		return repository.load(id);
+	}
+	
+	/**
+	 * 管理者情報を更新.
+	 * 
+	 * @param administrator 管理者情報
+	 */
+	public void update(Administrator administrator) {
+		repository.update(administrator);
+	}
 }

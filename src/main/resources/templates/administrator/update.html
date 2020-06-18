@@ -7,7 +7,7 @@
 <body>
 	<div class="container">
 		<!-- 上余白 -->
-		<div th:replace="administrator/administrator_common::header"></div>
+		<div th:replace="/employee/employee_common::header"></div>
 		<!-- login form -->
 		<div class="row">
 			<div
@@ -19,11 +19,10 @@
 					<!-- ここから上を編集する必要はありません -->
 
 					<!-- ここにモックのform要素を貼り付けます -->
-					<form method="post" th:action="@{/insert}" action="login.html"
-						th:object="${insertAdministratorForm}">
+					<form method="post" th:action="@{/update}" action="login.html" th:object="${updateAdministratorForm}">
 						<fieldset>
 							<legend>
-								管理者登録<br>(システムにログインできる管理者を登録します)
+								管理者情報更新<br>(システムにログインできる管理者情報を更新します)
 							</legend>
 							<!-- 氏名 -->
 							<div class="form-group">
@@ -31,7 +30,7 @@
 									<div class="col-sm-12">
 										<label for="name"> 氏名: </label> <label class="error-messages"
 											th:errors="*{name}"> 氏名を入力してください </label> <input type="text"
-											name="name" th:field="*{name}" id="name" class="form-control"
+											name="name" th:value="${adminInfo.name}" id="name" class="form-control"
 											placeholder="山田太郎">
 									</div>
 								</div>
@@ -43,7 +42,7 @@
 										<label for="mailAddress"> メールアドレス: </label> <label
 											class="error-messages" th:errors="*{mailAddress}">
 											メールアドレスを入力してください </label> <input type="text" name="mailAddress"
-											th:field="*{mailAddress}" id="mailAddress"
+											th:value="${adminInfo.mailAddress}" id="mailAddress"
 											class="form-control" placeholder="yamada@mail.com">
 									</div>
 								</div>
@@ -64,7 +63,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
-										<button type="submit" class="btn btn-primary">登録</button>
+										<button type="submit" class="btn btn-primary">更新</button>
 									</div>
 								</div>
 							</div>

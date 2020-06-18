@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.sample.domain.Administrator;
 import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.form.LoginForm;
+import jp.co.sample.form.UpdateAdministratorForm;
 import jp.co.sample.service.AdministratorService;
 
 /**
@@ -27,7 +28,7 @@ import jp.co.sample.service.AdministratorService;
 public class AdministratorController {
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private AdministratorService service;
 
@@ -39,6 +40,11 @@ public class AdministratorController {
 	@ModelAttribute
 	public InsertAdministratorForm setUpInsertAdministratorForm() {
 		return new InsertAdministratorForm();
+	}
+	
+	@ModelAttribute
+	public UpdateAdministratorForm setUpUpdateAdministratorForm() {
+		return new UpdateAdministratorForm();
 	}
 
 	/**
@@ -55,19 +61,20 @@ public class AdministratorController {
 	/**
 	 * ログイン処理を行う.
 	 * 
-	 * @param form ログイン情報
+	 * @param form  ログイン情報
 	 * @param model リクエストスコープ
 	 * @return ログイン成功ならば従業員一覧へ(失敗ならばログイン画面へ戻る)
 	 */
 	@RequestMapping("/login")
-	public String login(LoginForm form,Model model) {
-		
+	public String login(LoginForm form, Model model) {
+
 		Administrator administrator = service.findByMailaddressAndPassword(form.getMailAddress(), form.getPassword());
 		if (administrator == null) {
 			model.addAttribute("message", "メールアドレスまたはパスワードが不正です");
 			return toLogin(model);
 		}
 		session.setAttribute("administratorName", administrator.getName());
+		session.setAttribute("administratorId", administrator.getId());
 		return "forward:/employee/showList";
 	}
 
@@ -99,4 +106,33 @@ public class AdministratorController {
 
 		return "redirect:/";
 	}
+
+	@RequestMapping("/updateAdministrator")
+	public String updateAdministrator(Model model) {
+		String administratorName = (String) session.getAttribute("administratorName");
+		if(administratorName == null) {
+			return "redirect:/";
+		}
+		Integer id = (Integer) session.getAttribute("administratorId");
+		Administrator administrator = service.load(id);
+		model.addAttribute("adminInfo",administrator);
+		return "administrator/update";
+	}
+	
+	@RequestMapping("/update")
+	public String update(@Validated UpdateAdministratorForm form, BindingResult result, Model model) {
+		String administratorName = (String) session.getAttribute("administratorName");
+		if(administratorName == null) {
+			return "redirect:/";
+		}
+		if(result.hasErrors()) {
+			return updateAdministrator(model);
+		}
+		Integer id = (Integer) session.getAttribute("administratorId");
+		Administrator administrator = service.load(id);
+		BeanUtils.copyProperties(form, administrator);
+		service.update(administrator);
+		return "redirect:/";
+	}
+	
 }

@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div class="container">
-		<nav th:replace="employee_common::header"></nav>
+		<nav th:replace="employee/employee_common::header"></nav>
 
 		<!-- パンくずリスト -->
 		<ol class="breadcrumb">
@@ -157,7 +157,6 @@
 									</label>
 									<label class="control-label" style="color: red" for="dependentsCount"></label>
 									<input type="text" name="dependentsCount" th:value="${employee.dependentsCount}" id="dependentsCount" class="form-control">
-									
 							    </td>
 							  </tr>
 							</table>
