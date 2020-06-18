@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.domain.Employee;
+import jp.co.sample.form.SearchEmployeeForm;
 import jp.co.sample.form.UpdateEmployeeForm;
 import jp.co.sample.service.EmployeeService;
 
@@ -31,7 +32,12 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService service;
-
+	
+	@ModelAttribute
+	public SearchEmployeeForm setUpSearchEmployeeFrom() {
+		return new SearchEmployeeForm();
+	}
+	
 	@ModelAttribute
 	public UpdateEmployeeForm setUpUpdateEmployeeForm() {
 		return new UpdateEmployeeForm();
@@ -51,6 +57,13 @@ public class EmployeeController {
 		}
 		List<Employee> employeeList = service.showList();
 		model.addAttribute("employeeList", employeeList);
+		return "employee/list";
+	}
+	
+	@RequestMapping("/search")
+	public String search(SearchEmployeeForm form,Model model) {
+		List<Employee> employeeList = service.showNearNameList(form.getSearchName());
+		model.addAttribute("employeeList",employeeList);
 		return "employee/list";
 	}
 

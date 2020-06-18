@@ -48,5 +48,15 @@ public class EmployeeService {
 	public void update(Employee employee) {
 		repository.update(employee);
 	}
+	
+	/**
+	 * 名前のあいまい検索を行う.
+	 * 
+	 * @param searchName あいまい検索キーワード
+	 * @return 社員情報（入社日降順）
+	 */
+	public List<Employee> showNearNameList(String searchName){
+		return repository.findByNearName(searchName);
+	}
 
 }

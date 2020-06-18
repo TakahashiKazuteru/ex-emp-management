@@ -74,6 +74,21 @@ public class EmployeeRepository {
 			System.out.println("Debug:called load()");	
 		}
 	}
+	
+	/**
+	 * キーワードから名前のあいまい検索を行う.
+	 * 
+	 * @param searchName 名前のあいまい検索キーワード
+	 * @return 社員情報リスト（入社日降順）
+	 */
+	public List<Employee> findByNearName(String searchName){
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count "
+				+ "FROM "+TABLE_NAME+" WHERE name LIKE :searchName ORDER BY hire_date DESC;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", "%"+searchName+"%");
+		List<Employee> employeeList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+		
+		return employeeList;
+	}
 
 	/**
 	 * ID以外の社員情報を更新.
